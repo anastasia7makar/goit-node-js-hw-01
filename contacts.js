@@ -1,9 +1,10 @@
 import { nanoid } from "nanoid";
 
 import fs from "fs/promises";
+import path from "path";
 
-
-const contactsPath = './db/contacts.json';
+const contactsPath = path.resolve("./db/contacts.json");
+console.log(contactsPath);
 
 const getContacts = async () => {
   const data = await fs.readFile(contactsPath, { encoding: "utf8" });
@@ -14,7 +15,7 @@ const getContacts = async () => {
 const getContactById = async (contactId) => {
   const contactsList = await getContacts();
   const contactById = contactsList.find((contact) => contact.id === contactId);
-  return contactById;
+  return contactById || null;
 };
 
 const removeContact = async (contactId) => {
